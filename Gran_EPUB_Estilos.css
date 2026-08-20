@@ -1,0 +1,168 @@
+@charset "UTF-8";
+/* Gran EPUB Standard — baseline v1.4.7
+   Regra central: conteúdo refluível; indentação normal EXATAMENTE 1.5em. */
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; padding: 0;
+  line-height: 1.5;
+  text-align: justify;
+  hyphens: auto; -webkit-hyphens: auto;
+  orphans: 2; widows: 2;
+}
+p { margin: 0; text-indent: 1.5em; }
+p + p { margin-top: 0; }
+
+h1,h2,h3,h4 {
+  font-family: sans-serif;
+  color: #061b5c;
+  text-align: left;
+  hyphens: none; -webkit-hyphens: none;
+  break-after: avoid; page-break-after: avoid;
+  font-weight: 800 !important;
+}
+h1 { font-size: 1.72em; margin: 1.35em 0 0.7em; }
+h2 { font-size: 1.42em; margin: 1.25em 0 0.6em; }
+h3 { font-size: 1.22em; margin: 1.15em 0 0.55em; }
+h4 { font-size: 1.08em; margin: 1em 0 0.5em; }
+/* Títulos/subtítulos usam a cor editorial anterior; spans cromáticos do PDF não a sobrescrevem. */
+h1 [class^="cor-"], h2 [class^="cor-"], h3 [class^="cor-"], h4 [class^="cor-"] { color: inherit; }
+h1 + p, h2 + p, h3 + p, h4 + p, figure + p, blockquote + p, aside + p { text-indent: 0; }
+
+strong { font-weight: bold !important; }
+/* Negrito tipográfico preservado diretamente do PDF. */
+.pdf-bold { font-weight:800 !important; font-synthesis:weight; }
+em { font-style: italic; }
+/* Itálico tipográfico preservado somente com evidência forte da fonte do PDF. */
+.pdf-italic { font-style:italic; }
+a { color: inherit; text-decoration: underline; }
+/* Trechos verificados como texto comum nunca herdam decoração inferida. */
+.no-source-decoration { text-decoration:none !important; }
+
+/* Paleta cromática canônica CSS/sRGB.
+   Só é aplicada quando a cor vem diretamente de spans do PDF.
+   Cor e peso tipográfico são independentes: somente .pdf-bold aplica negrito.
+   Sem !important: leitores/temas de alto contraste podem sobrescrevê-la. */
+.cor-azul { color:#0000ff; }
+.cor-vermelha { color:#ff0000; }
+.cor-verde { color:#008000; }
+.cor-laranja { color:#ffa500; }
+.cor-roxa { color:#800080; }
+.pagebreak { display:block; height:0; line-height:0; overflow:hidden; margin:0; padding:0; }
+.pagebreak.pagebreak-inline { display:inline; }
+
+.cover { margin:0; padding:0; text-align:center; }
+.cover img { display:block; width:auto; max-width:100%; height:auto; margin:0 auto; }
+figure { margin: 1.2em auto; text-align:center; break-inside:avoid; page-break-inside:avoid; }
+figure img { display:block; width:auto; max-width:100%; height:auto; margin:0 auto; }
+figcaption { font-size:.82em; margin-top:.45em; text-align:center; font-style:italic; }
+
+/* Listas: todas justificadas e hifenizadas. O sumário é a única exceção.
+   text-align-last:left evita esticar a última linha; a hifenização pt-BR
+   reduz rios sem recorrer a flex/inline-block. */
+ul, ol, ul li, ol li, .bullets, .bullets li {
+  text-align:justify !important;
+  text-align-last:left !important;
+  text-justify:inter-word !important;
+  hyphens:auto !important; -webkit-hyphens:auto !important;
+  word-break:normal !important;
+  overflow-wrap:normal !important;
+}
+ul { margin: .65em 0 .75em 1.15em; padding-left:1.1em; }
+li { margin:.32em 0; padding-left:.15em; }
+
+/* Marcadores refluíveis preservados em fluxo; recuo pendente sem layout fragmentador. */
+ul.bullets { list-style:none; margin-left:0; padding-left:1.35em; }
+ul.bullets > li { list-style:none; padding-left:0; text-indent:-1.15em; }
+ul.bullets > li[data-kind="dash"] { margin-left:1em; }
+ul.bullets > li[data-kind="subbullet"] { margin-left:2em; }
+ul.bullets .list-marker { font-weight:400; white-space:nowrap; }
+
+/* Gabarito também é lista e segue a regra geral de justificação. */
+ol.answer-key { margin:.7em 0 .8em 2em; padding-left:1em; }
+ol.answer-key > li { margin:.22em 0; }
+
+p.question-start {
+  text-indent:0;
+  margin:1.25em 0 .5em;
+  text-align:justify;
+  text-justify:inter-word;
+  hyphens:auto; -webkit-hyphens:auto;
+}
+.question-number { font-weight:800; white-space:nowrap; }
+p.alternative, p.assertion, p.enumerated, p.question-tail {
+  text-indent:0;
+  margin:.32em 0 .32em 1em;
+  text-align:justify;
+  hyphens:auto; -webkit-hyphens:auto;
+}
+.list-marker { font-weight:600; white-space:nowrap; }
+p.answer { text-indent:0; font-weight:700; margin:.25em 0 .75em; }
+
+.callout, .question-callout {
+  margin:1em 0;
+  padding:.75em .9em;
+  background:#f5f7fb;
+  border-left:.28em solid #092d69;
+  break-inside:avoid; page-break-inside:avoid;
+}
+.callout p { text-indent:0; margin:0; }
+.callout-label { font-family:sans-serif; font-weight:700; letter-spacing:.02em; margin-bottom:.35em; }
+.callout.dica { border-left-color:#d7253d; background:#fff7f8; }
+.callout.dica .callout-label { color:#d7253d; }
+.callout.exemplo { border-left-color:#061b5c; background:#f7f8fc; }
+.callout.exemplo .callout-label { color:#061b5c; }
+.callout.obs, .callout.obs\. { border-left-color:#0b3778; background:transparent; padding-top:.3em; padding-bottom:.3em; }
+.callout.obs .callout-label { display:inline; margin:0 .35em 0 0; }
+.callout.obs > p:first-of-type { display:inline; }
+.callout.obs > p + p { display:block; margin-top:.42em; }
+.question-callout {
+  background:#ffffff;
+  border:.09em solid #020b4c;
+  border-left-width:.35em;
+  border-radius:.25em;
+  color:#020b4c;
+  font-family:sans-serif;
+  font-weight:600;
+  text-align:left;
+  hyphens:none; -webkit-hyphens:none;
+}
+/* A caixa de pergunta é monocromática no PDF: spans cromáticos internos herdam o azul-marinho da caixa. */
+.question-callout [class^="cor-"] { color:inherit; }
+
+blockquote.legal-quote {
+  margin:.85em .9em;
+  padding:.25em 0 .25em .8em;
+  border-left:.18em solid #aeb7c7;
+  font-size:.94em;
+  text-align:justify;
+  hyphens:auto; -webkit-hyphens:auto;
+}
+blockquote.legal-quote p { margin:0; text-indent:0; text-align:justify; hyphens:auto; -webkit-hyphens:auto; }
+blockquote.legal-quote p + p { margin-top:.42em; }
+blockquote.legal-quote .legal-item { margin-left:.65em; }
+blockquote.legal-quote .legal-subitem { margin-left:1.35em; }
+
+.table-wrap { margin:1em 0; overflow-x:auto; }
+table { width:100%; border-collapse:collapse; table-layout:fixed; font-size:.84em; }
+th,td { border:.07em solid #777; padding:.45em; vertical-align:top; overflow-wrap:anywhere; hyphens:auto; }
+th { background:#f0f3f8; color:#061b5c; font-family:sans-serif; text-align:center; }
+
+.titlepage { text-align:center; padding-top:22%; }
+.titlepage .area { font-family:sans-serif; font-size:1.15em; letter-spacing:.04em; color:#4b5563; margin:0 0 1.1em; text-indent:0; }
+.titlepage h1 { text-align:center; font-size:2em; margin:0 0 1.5em; }
+.titlepage .author { font-family:sans-serif; font-size:1.05em; text-indent:0; }
+
+/* Sumário: esquerda + sem hifenização. */
+nav#toc, nav#toc ol, nav#toc li, nav#toc a {
+  text-align:left !important;
+  text-align-last:left !important;
+  text-justify:auto !important;
+  hyphens:none !important; -webkit-hyphens:none !important;
+  word-spacing:normal !important;
+  letter-spacing:normal !important;
+}
+nav ol { list-style:none; padding-left:0; }
+nav li { margin:.45em 0; padding-left:0; }
+nav#toc .toc-l2 { margin-left:.9em; }
+nav#toc .toc-l3 { margin-left:1.7em; }
+nav#toc .toc-l4 { margin-left:2.5em; }
